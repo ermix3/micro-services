@@ -1,14 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT_ONE || 4002;
+const PORT = process.env.PORT || 5002;
 const mongoose = require("mongoose");
 const Utilisateur = require("./models/Utilisateur");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 mongoose.set("strictQuery", true);
-mongoose.connect("mongodb://127.0.0.1:27017/auth-service", {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

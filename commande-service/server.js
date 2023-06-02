@@ -2,13 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const isAuth = require("./middleware/isAuth");
 const app = express();
-const PORT = process.env.PORT_ONE || 5001;
+const PORT = process.env.PORT || 5001;
 const mongoose = require("mongoose");
 const Commande = require("./models/Commande");
 const axios = require("axios");
 //Connexion à la base de données
 mongoose.set("strictQuery", true);
-mongoose.connect("mongodb://127.0.0.1:27017/commande-service-db", {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -70,6 +70,31 @@ app.get("/commandes", (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 });
 
+const amqp = require("amqplib");
+let connection, channel;
+
+const connect = async () => {
+  const amqpServer = "amqp://localhost:5672";
+  connection = await amqp.connect(amqpServer);
+
+  channel = await connection.createChannel();
+
+  const queue = 'file_attente1',
+        msg = 'Bonjour le monde' ;
+
+  await channel.assertQueue(queue);
+  await channel.sendToQueue(queue, Buffer.from(msg));
+  console.log( " [x] Envoyé %s" , msg);
+}
+
+connect();
+
+// setTimeout(function() {
+//   connection.close();
+//   process.exit(0)
+// }, 500);
+
 app.listen(PORT, () => {
   console.log(`Commande-Service at ${PORT}`);
 });
+
