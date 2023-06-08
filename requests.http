@@ -1,33 +1,33 @@
 ### GET acheter
-POST  http://localhost:4000/produit/acheter
+POST  http://localhost:4000/produits/acheter
 Accept: application/json
 Content-Type: application/json
 
 {
-    "ids":["64770c51ae29b7b3dbddd7a8","64770ccdae29b7b3dbddd7ab","647739c2e74b267baaee91e6"]
+    "ids":["64825322fc8bb05afdbf3c5a"]
 }
 
 ### POST ajouter
-POST http://localhost:4000/produit/ajouter
+POST http://localhost:4000/produits/ajouter
 Accept: application/json
 Content-Type: application/json
 
 {
-   "nom": "pro 6",
-    "description": "blabla bla",
-    "prix": 10
+   "nom": "pro 1",
+    "description": "jobino bla",
+    "prix": 122
 }
 
 
 ### POST ajouter
-POST http://localhost:4001/commande/ajouter
+POST http://localhost:4001/commandes/ajouter
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFAYS5jb20iLCJub20iOiJwcm8gNSIsImlhdCI6MTY4NTUzMTM4NH0.q0u4dfvPiwtpSAR9DQ6z_y83SnqoqevqNaqPPj_Q_8c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFAYS5jb20iLCJub20iOiJwcm8gNSIsImlhdCI6MTY4NjI2NTc0MH0.QC1sL16P0jvXQKUfO1VtltR1xNkxr8DcOSbEmn-pOeM
 
 {
-    "ids":["64770c51ae29b7b3dbddd7a8","64770ccdae29b7b3dbddd7ab","647710b7ff64179a11e412f3"],
-   "email_utilisateur": "bllq@nll.com"
+    "ids":["64825322fc8bb05afdbf3c5a"],
+   "email_utilisateur": "q@a.com"
 }
 
 ### GET acheter

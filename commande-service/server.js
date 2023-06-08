@@ -2,12 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.SERVER_PORT || 5001;
 
 
 //Connexion à la base de données
 mongoose.set("strictQuery", true);
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -16,6 +16,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use(express.json());
 
 //Routes
+app.get("/", (res, req)=>res.status(200).json({message: "Hello and welcome"}));
 app.use("/commandes", require("./routes/commandeRoutes"));
 
 // const amqp = require("amqplib");

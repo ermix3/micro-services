@@ -8,7 +8,8 @@
     "mongoose": "^7.2.2"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "NODE_ENV=dev nodemon server.js",
+    "start:prod": "NODE_ENV=prod node server.js"
   },
   "name": "authentification-service",
   "version": "1.0.0",

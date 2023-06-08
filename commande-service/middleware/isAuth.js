@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
 
 async function httpRequestIsAuth(token) {
   try {
-    const URL = "http://localhost:4002/auth/verify";
+    const URL = `http://auth-service:4002/auth/verify`;
     const response = await axios.post(
       URL,
       {},
