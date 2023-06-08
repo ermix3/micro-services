@@ -1,0 +1,84 @@
+version: '3.9'
+services:
+  commande-service:
+    build:
+      context: ./commande-service
+    image: commande-service:v1
+    container_name: commande-service
+    ports:
+      - "4001:4001"
+    depends_on:
+      - commande-db
+      - auth-service
+      - produit-service
+    environment:
+      SERVER_PORT: "4001"
+      DB_HOST: commande-db
+      DB_PORT: "27017"
+      DB_NAME: commande-service-db
+    networks:
+      - app-network
+
+  produit-service:
+    build:
+      context: ./produit-service
+    image: produit-service:v1
+    container_name: produit-service
+    ports:
+      - "4000:4000"
+    depends_on:
+      - produit-db
+      - auth-service
+    environment:
+      SERVER_PORT: "4000"
+      DB_HOST: produit-db
+      DB_PORT: "27017"
+      DB_NAME: produit-service-db
+    networks:
+      - app-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+    image: auth-service:v1
+    container_name: auth-service
+    ports:
+      - "4002:4002"
+    depends_on:
+      - auth-db
+    environment:
+      SERVER_PORT: "4002"
+      DB_HOST: auth-db
+      DB_PORT: "27017"
+      DB_NAME: auth-service-db
+      JWT_KEY: secret
+    networks:
+      - app-network
+
+  commande-db:
+    image: mongo:latest
+    container_name: commande-db
+    ports:
+      - "27018:27017"
+    networks:
+      - app-network
+
+  produit-db:
+    image: mongo:latest
+    container_name: produit-db
+    ports:
+      - "27019:27017"
+    networks:
+      - app-network
+
+  auth-db:
+    image: mongo:latest
+    container_name: auth-db
+    ports:
+      - "27020:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
