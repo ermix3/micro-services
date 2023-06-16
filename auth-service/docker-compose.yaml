@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  auth-app:
+    build:
+      context: .
+    container_name: my-auth
+    depends_on:
+      - db
+    ports:
+      - "4002:4002"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=27017
+      - DB_NAME=auth-service-db
+      - SERVER_PORT=4002
+      - JWT_KEY=bqbqbqbqbq
+
+
+  db:
+    image: mongo:latest
+    container_name: auth-db
+    ports:
+      - "27018:27017"

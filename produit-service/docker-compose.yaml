@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  product-app:
+    build:
+      context: .
+    container_name: my-product
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=27017
+      - DB_NAME=product-service-db
+      - SERVER_PORT=4000
+
+  db:
+    image: mongo:latest
+    container_name: product-db
+    ports:
+      - "27020:27017"
